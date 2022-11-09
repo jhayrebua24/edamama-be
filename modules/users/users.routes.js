@@ -1,7 +1,7 @@
 const express = require("express");
 const { registerValidation, loginValidation } = require("./users.validators");
 const UsersService = require("./users.service");
-const checkValidation = require("../../utils/checkValidation");
+const checkValidation = require("../../middleware/checkValidation");
 const router = express.Router();
 
 router.post(

@@ -1,21 +1,22 @@
-const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./users.model");
 const { JWT_SECRET } = require("../../config/credentials");
 
-const formatTokenPayload = ({ username, id, created_at }) => ({
+const formatTokenPayload = ({ username, id, created_at, role }) => ({
   username,
   id,
   created_at,
+  role,
 });
 
 const register = async (req, res) => {
-  const { username, password, email } = req.body;
+  const { username, password, email, role } = req.body;
   const newUser = new User({
     username,
     email,
     password,
+    role,
   });
 
   // create salt & hash
