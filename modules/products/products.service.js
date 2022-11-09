@@ -7,7 +7,12 @@ const {
 
 const getProducts = async (req, res) => {
   try {
-    const products = await Product.paginate({}, formatPaginationParams(req));
+    const products = await Product.paginate(
+      {
+        title: { $regex: req.query.q || ``, $options: "i" },
+      },
+      formatPaginationParams(req)
+    );
     return res.json(transformPaginatedResult(products));
   } catch (err) {
     res.status(400).json({ err });

@@ -17,6 +17,7 @@ const transformPaginatedResult = ({ docs: data, ...meta }) => ({
 const formatPaginationParams = ({ query }) => ({
   page: query.page || 1,
   limit: query.limit || 15,
+  sort: { created_at: -1 },
 });
 
 module.exports = {
