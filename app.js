@@ -1,19 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const { MONGO_URL } = require("./config/credentials");
 const app = express();
+const cors = require("cors");
 const port = 3000;
 
-const db = `mongodb+srv://root:root@my-cluster.emkzjkx.mongodb.net/?retryWrites=true&w=majority`;
-
 app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(cors());
 
 const start = async () => {
   try {
-    await mongoose.connect(db, {
+    await mongoose.connect(MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -24,5 +21,8 @@ const start = async () => {
     process.exit(1);
   }
 };
+
+// routes
+app.use("/api/users", require("./modules/users/users.routes"));
 
 start();
