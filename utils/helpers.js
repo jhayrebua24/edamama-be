@@ -9,6 +9,18 @@ const slugify = (string) =>
     .replace(/^-+/, "")
     .replace(/-+$/, "");
 
+const transformPaginatedResult = ({ docs: data, ...meta }) => ({
+  data,
+  meta,
+});
+
+const formatPaginationParams = ({ query }) => ({
+  page: query.page || 1,
+  limit: query.limit || 15,
+});
+
 module.exports = {
   slugify,
+  transformPaginatedResult,
+  formatPaginationParams,
 };

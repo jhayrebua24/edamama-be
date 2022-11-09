@@ -1,15 +1,14 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const Product = require("./products.model");
-const { JWT_SECRET } = require("../../config/credentials");
-const { slugify } = require("../../utils/helpers");
+const {
+  slugify,
+  transformPaginatedResult,
+  formatPaginationParams,
+} = require("../../utils/helpers");
 
-const getProducts = async (_req, res) => {
+const getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
-    return res.json({
-      data: products,
-    });
+    const products = await Product.paginate({}, formatPaginationParams(req));
+    return res.json(transformPaginatedResult(products));
   } catch (err) {
     res.status(400).json({ err });
   }

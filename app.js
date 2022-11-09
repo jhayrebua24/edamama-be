@@ -25,5 +25,6 @@ const start = async () => {
 // routes
 app.use("/api/users", require("./modules/users/users.routes"));
 app.use("/api/products", require("./modules/products/products.routes"));
+app.use("/api/cart", require("./modules/cart/cart.routes"));
 
 start();
